@@ -1,7 +1,9 @@
 import path from "path";
 import fs from 'fs';
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req:any, res:any) { 
+export default function handler(req:NextApiRequest, res:NextApiResponse) { 
+    try {
     const filePath = path.join(process.cwd(), "data.csv");
     const fileContent = fs.readFileSync(filePath, "utf-8");
 
@@ -10,5 +12,7 @@ export default function handler(req:any, res:any) {
         return { createdAt: createdAt.trim(), fileName: fileName.trim() };
     });
 
-    res.status(200).json(items)
+    res.status(200).json(items)} catch (error) {
+        res.status(500).json({message: "Internal Server Error"})
+    }
 }
