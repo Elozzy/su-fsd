@@ -14,7 +14,7 @@ const DropDown: React.FC<DropDownProps> = ({ onSelect, currentSort}) => {
   ];
 
   return (
-    <Menu as="div" className="relative inline-block text-left w-[14rem]">
+    <Menu as="div" className="relative inline-block text-left w-[16rem]">
     <div>
       <MenuButton className="inline-flex w-full space-between justify-left gap-x-1.5 rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50">
         {options.find((option) => option.value === currentSort)?.label || "Options"}
