@@ -2,6 +2,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import DropDown from "./Components/Dropdown";
 
 type Item = {
   createdAt: string;
@@ -39,20 +40,28 @@ export default function Home() {
     }
     return sortedItems;
   };
+
   return (
-    <div>
-      <select onChange={(e) => setSortType(e.target.value)}>
-        <option value="createdAt">Sort by Created At</option>
-        <option value="filenameAsc">Sort by Filename Asc</option>
-        <option value="filenameDesc">Sort by Filename Desc</option>
-      </select>
-      <ul>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      {/* Dropdown */}
+      <div className="mb-5">
+        <DropDown onSelect={setSortType} currentSort={sortType} />
+      </div>
+
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 w-[45rem] px-4">
         {sortItems().map((item, index) => (
-          <li key={index}>
-            {item.fileName} - {new Date(item.createdAt).toLocaleString()}
-          </li>
+          <div
+            key={index}
+            className="flex flex-col justify-between p-4  ring-1 ring-gray-300 ring-inset bg-white rounded-lg "
+          >
+            <p className="text-gray-700 font-medium">
+              {new Date(item.createdAt).toLocaleString()}
+            </p>
+            <p className="text-sm text-gray-500">{item.fileName}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
